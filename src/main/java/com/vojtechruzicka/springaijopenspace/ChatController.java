@@ -28,4 +28,15 @@ public class ChatController {
     public String askWithImage(@RequestParam(defaultValue = "Describe me what is in the image?", required = false) String question, @RequestParam String imageUrl) throws MalformedURLException, URISyntaxException {
         return chatService.askWithImage(question, imageUrl);
     }
+
+
+    @GetMapping("/movies")
+    public String getMovies(@RequestParam(defaultValue = "What are top movies according to metacritic score?", required = false) String question) {
+        return chatService.getMovies(question).toString();
+    }
+
+    @GetMapping("/movie")
+    public String getMovie(@RequestParam(defaultValue = "Give me details about Monty Python's life of brian?", required = false) String question) {
+        return chatService.getMovie(question).toString();
+    }
 }

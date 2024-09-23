@@ -9,4 +9,10 @@ GET localhost:8080/chat/ask-image?imageUrl=https://www.jopenspace.cz/public/imag
 
 GET localhost:8080/image/cat
 
-###
+### Get movie details based on query (Structured output)
+
+GET localhost:8080/chat/movie?question=godfather
+
+### Get list of movies based on query (Structured output)
+
+GET localhost:8080/chat/movies?question=lord of the rings trilogy

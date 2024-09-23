@@ -5,12 +5,14 @@ import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.model.Media;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeType;
 
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @Service
 public class ChatService {
@@ -33,5 +35,21 @@ public class ChatService {
         UserMessage user = new UserMessage(question, image);
         Prompt prompt = new Prompt(user);
         return chatModel.call(prompt).getResult().getOutput().getContent();
+    }
+
+    public List<Movie> getMovies(String question) {
+        return chatClient.prompt()
+                .system("Your only purpose is to return movies based on user query. Score means metacritic score. Politely decline all other requests. ")
+                .user(question)
+                .call()
+                .entity(new ParameterizedTypeReference<List<Movie>>(){});
+    }
+
+    public Movie getMovie(String question) {
+        return chatClient.prompt()
+                .system("Your only purpose is to return single movie based on user query. Score means metacritic score. Politely decline all other requests.")
+                .user(question)
+                .call()
+                .entity(Movie.class);
     }
 }
