@@ -1,9 +1,7 @@
 package com.vojtechruzicka.springaijopenspace;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.ai.image.ImageModel;
-import org.springframework.ai.image.ImagePrompt;
-import org.springframework.ai.openai.OpenAiImageOptions;
+import org.springframework.ai.image.ImageResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,24 +12,17 @@ import java.io.IOException;
 @RequestMapping("/image")
 public class ImageController {
 
-    private final ImageModel imageModel;
+    private final ImageService imageService;
 
-    public ImageController(ImageModel imageModel) {
-        this.imageModel = imageModel;
+    public ImageController(ImageService imageService) {
+        this.imageService = imageService;
     }
 
-
     @GetMapping("/cat")
-    public void getChat(HttpServletResponse response) throws IOException {
-        var imageOptions = OpenAiImageOptions.builder()
-                .withHeight(1024)
-                .withWidth(1024)
-                .withN(1)
-                .build();
-        var instructions = "Image of cute playful cat.";
-        var request = new ImagePrompt(instructions, imageOptions);
+    public void getImageOfCat(HttpServletResponse response) throws IOException {
+        ImageResponse image = imageService.generateImageOfCat();
+        String imageUrl = image.getResult().getOutput().getUrl();
 
-        response.sendRedirect(imageModel.call(request).getResult().getOutput().getUrl());
-
+        response.sendRedirect(imageUrl);
     }
 }

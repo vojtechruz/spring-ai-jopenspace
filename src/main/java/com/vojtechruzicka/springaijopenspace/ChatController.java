@@ -25,7 +25,7 @@ public class ChatController {
     }
 
     @GetMapping("/ask-image")
-    public String askWithImage(@RequestParam(defaultValue = "Describe me what is in the image?", required = false) String question, String imageUrl) throws MalformedURLException, URISyntaxException {
+    public String askWithImage(@RequestParam(defaultValue = "Describe me what is in the image?", required = false) String question, @RequestParam String imageUrl) throws MalformedURLException, URISyntaxException {
         return chatService.askWithImage(question, imageUrl);
     }
 }
