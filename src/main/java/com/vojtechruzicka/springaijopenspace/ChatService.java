@@ -60,7 +60,7 @@ public class ChatService {
     }
 
     public String getMoviesInCinemas(String question, String city) {
-        List<Message> messages = List.of(new UserMessage(question + " my current city is " + city), new SystemMessage("Your only purpose is to return movies based on user query. Score means metacritic score. Politely decline all other requests. "));
+        List<Message> messages = List.of(new UserMessage(question + " My current city is " + city), new SystemMessage("Your only purpose is to return movies based on user query. Score means metacritic score. Politely decline all other requests."));
         OpenAiChatOptions options = OpenAiChatOptions.builder().withFunction("CurrentMovies").build();
         Prompt prompt = new Prompt(messages, options);
 

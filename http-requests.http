@@ -20,3 +20,7 @@ GET localhost:8080/chat/movies?question=Give me three best movies according to m
 ### Get list of movies currently in cinemas
 
 GET localhost:8080/chat/movies-in-cinemas
+
+### Get list of movies currently in cinemas with filter
+
+GET localhost:8080/chat/movies-in-cinemas?question=Give me movies currently in cinemas with rating 80 or higher
