@@ -39,4 +39,9 @@ public class ChatController {
     public String getMovie(@RequestParam(defaultValue = "Give me details about Monty Python's life of brian?", required = false) String question) {
         return chatService.getMovie(question).toString();
     }
+
+    @GetMapping("/movies-in-cinemas")
+    public String getMovie(@RequestParam(defaultValue = "Give me a movie currently in cinemas", required = false) String question, @RequestParam(required = false, defaultValue = "Prague") String city) {
+        return chatService.getMoviesInCinemas(question, city);
+    }
 }

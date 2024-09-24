@@ -11,6 +11,19 @@ public class Movie {
     private String score;
     private String description;
 
+
+    public Movie() {
+    }
+
+    public Movie(String title, String year, String director, List<String> genres, String score, String description) {
+        this.title = title;
+        this.year = year;
+        this.director = director;
+        this.genres = genres;
+        this.score = score;
+        this.description = description;
+    }
+
     public String getTitle() {
         return title;
     }

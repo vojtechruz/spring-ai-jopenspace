@@ -11,8 +11,12 @@ GET localhost:8080/image/cat
 
 ### Get movie details based on query (Structured output)
 
-GET localhost:8080/chat/movie?question=godfather
+GET localhost:8080/chat/movie?question=What is the best ranked movie ever?
 
 ### Get list of movies based on query (Structured output)
 
-GET localhost:8080/chat/movies?question=lord of the rings trilogy
+GET localhost:8080/chat/movies?question=Give me three best movies according to metacritic with score, year, director, short description and genre
+
+### Get list of movies currently in cinemas
+
+GET localhost:8080/chat/movies-in-cinemas
