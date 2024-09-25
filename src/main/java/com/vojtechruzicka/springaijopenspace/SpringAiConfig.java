@@ -1,21 +1,30 @@
 package com.vojtechruzicka.springaijopenspace;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.model.function.FunctionCallback;
 import org.springframework.ai.model.function.FunctionCallbackWrapper;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import java.util.List;
 
 @Configuration
 public class SpringAiConfig {
-    
-        @Bean
-        public ChatClient chatClient(ChatClient.Builder builder) {
-            return builder.defaultAdvisors(new SimpleLoggerAdvisor()).build();
-        }
+
+    @Primary
+    @Bean
+    public ChatClient chatClient(ChatClient.Builder builder) {
+        return builder.defaultAdvisors(new SimpleLoggerAdvisor()).build();
+    }
+
+    @Bean
+    public ChatClient ragChatClient(ChatClient.Builder builder, VectorStore vectorStore) {
+        return builder.defaultAdvisors(new SimpleLoggerAdvisor(), new QuestionAnswerAdvisor(vectorStore)).build();
+    }
 
         // Custom function definitions - these can be called to provide dynamic information to the model
 

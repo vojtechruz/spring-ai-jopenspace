@@ -9,6 +9,7 @@ import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.model.Media;
 import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeType;
@@ -23,12 +24,12 @@ public class ChatService {
 
     private final ChatClient chatClient;
     private final ChatModel chatModel;
-    private final VectorStore vectorStore;
+    private final ChatClient ragChatClient;
 
-    public ChatService(ChatClient chatClient, ChatModel chatModel, VectorStore vectorStore) {
+    public ChatService(ChatClient chatClient, ChatModel chatModel, @Qualifier("ragChatClient") ChatClient ragChatClient) {
         this.chatClient = chatClient;
         this.chatModel = chatModel;
-        this.vectorStore = vectorStore;
+        this.ragChatClient = ragChatClient;
     }
 
 
@@ -65,5 +66,9 @@ public class ChatService {
         Prompt prompt = new Prompt(messages, options);
 
         return chatModel.call(prompt).getResult().getOutput().getContent();
+    }
+
+    public String askVectorStore(String question) {
+        return ragChatClient.prompt().user(question).call().content();
     }
 }

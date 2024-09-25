@@ -1,6 +1,9 @@
 ### Ask a simple question
 GET localhost:8080/chat/ask?question=What is the meaning of life
 
+### Ask with vector store search (RAG)
+GET localhost:8080/chat/ask-vector-store?question=What fruit i hate
+
 ### Ask question about image
 
 GET localhost:8080/chat/ask-image?imageUrl=https://www.jopenspace.cz/public/images/gallery/2022/main.jpg&question=How many people are there in the photo

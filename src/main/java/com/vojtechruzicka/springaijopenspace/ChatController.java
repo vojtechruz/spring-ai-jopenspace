@@ -24,11 +24,15 @@ public class ChatController {
         return chatService.ask(question);
     }
 
+    @GetMapping("/ask-vector-store")
+    public String askVectorStore(@RequestParam(defaultValue = "How can you help me?", required = false) String question) {
+        return chatService.askVectorStore(question);
+    }
+
     @GetMapping("/ask-image")
     public String askWithImage(@RequestParam(defaultValue = "Describe me what is in the image?", required = false) String question, @RequestParam String imageUrl) throws MalformedURLException, URISyntaxException {
         return chatService.askWithImage(question, imageUrl);
     }
-
 
     @GetMapping("/movies")
     public String getMovies(@RequestParam(defaultValue = "What are top movies according to metacritic score?", required = false) String question) {
