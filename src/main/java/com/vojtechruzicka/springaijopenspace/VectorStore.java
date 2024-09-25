@@ -1,0 +1,14 @@
+package com.vojtechruzicka.springaijopenspace;
+
+import org.springframework.ai.embedding.EmbeddingModel;
+import org.springframework.ai.vectorstore.SimpleVectorStore;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class VectorStore extends SimpleVectorStore {
+
+    public VectorStore(EmbeddingModel embeddingModel) {
+        super(embeddingModel);
+    }
+
+}
