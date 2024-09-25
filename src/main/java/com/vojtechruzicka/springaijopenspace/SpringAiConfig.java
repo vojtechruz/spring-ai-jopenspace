@@ -1,6 +1,7 @@
 package com.vojtechruzicka.springaijopenspace;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.model.function.FunctionCallback;
 import org.springframework.ai.model.function.FunctionCallbackWrapper;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +14,7 @@ public class SpringAiConfig {
     
         @Bean
         public ChatClient chatClient(ChatClient.Builder builder) {
-            return builder.build();
+            return builder.defaultAdvisors(new SimpleLoggerAdvisor()).build();
         }
 
         // Custom function definitions - these can be called to provide dynamic information to the model
