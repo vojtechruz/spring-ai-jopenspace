@@ -1,0 +1,20 @@
+[
+  {
+    "speaker": "Jiří Pinkas",
+    "title": "Spring Modulith a DDD",
+    "year": 2024,
+    "description": "Domain Driven Design has been around for about 20 years. Now it has finally received better support in Spring in the form of Spring Modulith."
+  },
+  {
+    "speaker": "Peter Cipov",
+    "title": "Hackers's diet",
+    "year": 2023,
+    "description": "50kg in 7 months, without training and going to the gym. Intermittent fasting, eating once a day with a low carbohydrate content (ketodiet)."
+  },
+  {
+    "speaker": "Petr Filip",
+    "title": "JSONata",
+    "year": 2022,
+    "description": "An amazing declarative language for processing JSON even for non-programmers. It allows for aggregations, functions, simple scripting."
+  }
+]
