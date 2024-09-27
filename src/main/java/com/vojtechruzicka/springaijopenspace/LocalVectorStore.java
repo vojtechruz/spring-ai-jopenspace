@@ -3,7 +3,10 @@ package com.vojtechruzicka.springaijopenspace;
 import jakarta.annotation.PostConstruct;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
+import org.springframework.ai.reader.ExtractedTextFormatter;
 import org.springframework.ai.reader.JsonReader;
+import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
+import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
 import org.springframework.ai.reader.tika.TikaDocumentReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
@@ -22,12 +25,15 @@ public class LocalVectorStore extends SimpleVectorStore {
     private final String userHome;
     private final Resource powerpointFile;
     private final Resource presentationsFile;
+    private final Resource pdfFile;
 
-    public LocalVectorStore(EmbeddingModel embeddingModel, @Value("${user.home}") String userHome, @Value("classpath:/presentations.json") Resource presentationsFile, @Value("classpath:/2019 - SNYK.pptx") Resource powerpointFile) {
+    public LocalVectorStore(EmbeddingModel embeddingModel, @Value("${user.home}") String userHome, @Value("classpath:/presentations.json") Resource presentationsFile,
+                            @Value("classpath:/2019 - SNYK.pptx") Resource powerpointFile, @Value("classpath:/JOS GeneralMagic 2019.pdf") Resource pdfFile) {
         super(embeddingModel);
         this.userHome = userHome;
         this.powerpointFile = powerpointFile;
         this.presentationsFile = presentationsFile;
+        this.pdfFile = pdfFile;
     }
 
     /**
@@ -62,6 +68,18 @@ public class LocalVectorStore extends SimpleVectorStore {
         JsonReader jsonReader = new JsonReader(presentationsFile, _ -> Map.of("source","presentations.json","type","Jopenspace CZ presentation"));
         List<Document> jsonDocuments = jsonReader.get();
         documents.addAll(jsonDocuments);
+
+        // Example of importing documents from PDF
+        PagePdfDocumentReader pdfReader = new PagePdfDocumentReader(pdfFile,
+                PdfDocumentReaderConfig.builder()
+                        .withPageTopMargin(0)
+                        .withPageExtractedTextFormatter(ExtractedTextFormatter.builder()
+                                .withNumberOfTopTextLinesToDelete(0)
+                                .build())
+                        .withPagesPerDocument(1)
+                        .build());
+        List<Document> pdfDocuments = pdfReader.read();
+        documents.addAll(pdfDocuments);
 
         // This reader can process office documents, PDF or HTML
         TikaDocumentReader officeReader = new TikaDocumentReader(powerpointFile);

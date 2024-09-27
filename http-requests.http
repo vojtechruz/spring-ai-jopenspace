@@ -2,7 +2,7 @@
 GET localhost:8080/chat/ask?question=What is the meaning of life
 
 ### Ask with vector store search (RAG)
-GET localhost:8080/chat/ask-vector-store?question=What fruit i hate
+GET localhost:8080/chat/ask-vector-store?question=What is snyk
 
 ### Ask question about image
 
