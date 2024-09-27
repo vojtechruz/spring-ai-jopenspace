@@ -33,3 +33,9 @@ localhost:8080
 ```
 
 You can check `http-requests.http` for sample requests and directly execute them in IntelliJ IDEA using its integrated HTTP client.
+
+For list of available endpoints and their parameters and usage you can access Swagger docs:
+
+```
+http://localhost:8080/swagger-ui/index.html
+```

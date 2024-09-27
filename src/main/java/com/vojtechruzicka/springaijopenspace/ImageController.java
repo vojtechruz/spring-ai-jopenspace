@@ -1,5 +1,6 @@
 package com.vojtechruzicka.springaijopenspace;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.image.ImageResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class ImageController {
         this.imageService = imageService;
     }
 
+    @Operation(description = "Generates image of a cat.")
     @GetMapping("/cat")
     public void getImageOfCat(HttpServletResponse response) throws IOException {
         ImageResponse image = imageService.generateImageOfCat();
